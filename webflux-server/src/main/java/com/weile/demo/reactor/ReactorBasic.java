@@ -1,8 +1,9 @@
 package com.weile.demo.reactor;
 
-import com.weile.demo.reactor.util.Utils;
+import com.weile.demo.util.Utils;
 import reactor.core.publisher.Flux;
 
+import java.time.Duration;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -14,7 +15,7 @@ import java.util.function.Function;
 public class ReactorBasic {
 
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 
 		Function<Integer,Integer> mapFunction = (e) -> {
 			Utils.printThreadName(String.valueOf(e));
@@ -28,6 +29,19 @@ public class ReactorBasic {
 
 
 		Flux.range(0, 10).map(mapFunction).subscribe(consuerFunction);
+
+
+
+		//flux 无限流
+
+		Flux.interval(Duration.ofSeconds(1L)).subscribe(e ->Utils.printThreadName(String.valueOf(e)));
+
+		try {
+			Thread.sleep(10000L);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

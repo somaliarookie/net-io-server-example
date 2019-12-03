@@ -5,7 +5,7 @@ import java.util.function.IntUnaryOperator;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static com.weile.demo.reactor.util.Utils.printThreadName;
+import static com.weile.demo.util.Utils.printThreadName;
 
 /**
  * @Auth weile

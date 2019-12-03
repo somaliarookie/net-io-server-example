@@ -1,30 +1,26 @@
-package com.weile.demo.controller;
+package com.weile.demo.reactor;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+
+import java.time.Duration;
 
 /**
  * @Auth weile
- * @Time 2019/11/30 17:46
+ * @Time 2019/12/3 18:41
  * @Description TODO
  **/
 
 @RestController
-public class TestController {
+public class ReactorController {
 
 
+	@RequestMapping("/flux")
+	public Flux getFlux() {
 
-	@RequestMapping("/test")
-	public String getSth() {
 
-		Mono.just("mono1");
-		return "sth";
+		return Flux.just("1", "2").interval(Duration.ofMinutes(1L));
 
 	}
-
-
-
-
 }

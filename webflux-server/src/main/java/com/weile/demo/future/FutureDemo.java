@@ -1,6 +1,6 @@
 package com.weile.demo.future;
 
-import com.weile.demo.reactor.util.Utils;
+import com.weile.demo.util.Utils;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
