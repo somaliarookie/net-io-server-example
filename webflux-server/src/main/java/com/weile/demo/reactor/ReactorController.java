@@ -1,5 +1,6 @@
 package com.weile.demo.reactor;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
@@ -13,14 +14,17 @@ import java.time.Duration;
  **/
 
 @RestController
+
 public class ReactorController {
 
 
-	@RequestMapping("/flux")
-	public Flux getFlux() {
+	@RequestMapping(value = "/flux",produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
+	public Flux<Long> getFlux() {
 
 
-		return Flux.just("1", "2").interval(Duration.ofMinutes(1L));
+		Flux.interval(Duration.ofSeconds(1L)).subscribe(System.out::println);
+
+		return Flux.interval(Duration.ofSeconds(1L));
 
 	}
 }

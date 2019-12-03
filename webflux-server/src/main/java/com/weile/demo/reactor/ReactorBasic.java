@@ -42,6 +42,10 @@ public class ReactorBasic {
 			e.printStackTrace();
 		}
 
+		//defer 惰性求值
+		Flux.defer(() -> Flux.just("just", "just1", "just2"))
+				.subscribe(System.out::println);
+
 	}
 
 }
