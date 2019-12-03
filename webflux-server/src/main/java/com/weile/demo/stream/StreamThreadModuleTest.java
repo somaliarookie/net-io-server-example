@@ -2,6 +2,8 @@ package com.weile.demo.stream;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import java.util.function.IntUnaryOperator;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -12,6 +14,17 @@ import java.util.stream.Stream;
 public class StreamThreadModuleTest {
 
 	public static void main(String[] args) {
+
+		IntUnaryOperator mapFunction = (e) -> {
+			print(String.valueOf(e));
+			return e + 1;
+		};
+
+		IntStream.range(1, 5).map(mapFunction).forEach((e)-> System.out.println(e));
+
+
+
+
 		Random random = new Random();
 		// 随机产生数据
 		Stream<Integer> stream = Stream.generate(() -> random.nextInt())
@@ -46,10 +59,12 @@ public class StreamThreadModuleTest {
 	public static void print(String s) {
 		// System.out.println(s);
 		// 带线程名(测试并行情况)
-		System.out.println(Thread.currentThread().getName() + " > " + s);
+		System.out.println("Thread:"+Thread.currentThread().getName() + " > " + s);
 		try {
 			TimeUnit.MILLISECONDS.sleep(5);
 		} catch (InterruptedException e) {
 		}
 	}
+
+
 }
