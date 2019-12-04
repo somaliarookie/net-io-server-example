@@ -37,7 +37,7 @@ public class ReactorController {
 		System.out.println("lantency:"+lantency);
 
 
-		return Flux.just("data1","data2","data3")
+		return Flux.just("data1")
 				.delayElements(Duration.ofMillis(lantency));
 
 	}
