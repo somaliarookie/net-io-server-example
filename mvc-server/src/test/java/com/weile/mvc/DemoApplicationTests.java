@@ -1,4 +1,4 @@
-package com.weile.demo;
+package com.weile.mvc;
 
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;

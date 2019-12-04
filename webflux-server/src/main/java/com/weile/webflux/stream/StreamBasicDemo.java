@@ -1,4 +1,4 @@
-package com.weile.demo.stream;
+package com.weile.webflux.stream;
 
 import java.util.stream.IntStream;
 import java.util.stream.Stream;

@@ -1,6 +1,6 @@
-package com.weile.demo.future;
+package com.weile.webflux.future;
 
-import com.weile.demo.util.Utils;
+import com.weile.webflux.util.Utils;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;

@@ -1,11 +1,11 @@
-package com.weile.demo.stream;
+package com.weile.webflux.stream;
 
 import java.util.Random;
 import java.util.function.IntUnaryOperator;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static com.weile.demo.util.Utils.printThreadName;
+import static com.weile.webflux.util.Utils.printThreadName;
 
 /**
  * @Auth weile
