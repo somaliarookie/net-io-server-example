@@ -1,10 +1,13 @@
 package com.weile.webflux.reactor;
 
+import com.weile.webflux.util.Utils;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 import java.time.Duration;
 
@@ -41,4 +44,40 @@ public class ReactorController {
 				.delayElements(Duration.ofMillis(lantency));
 
 	}
+
+
+	/**
+	 * 无定制执行器
+	 * @return
+	 */
+	@RequestMapping(value = "/thread/subscribe/default")
+	public Flux<String> subcsribeThreadDefaultDefer() {
+
+
+
+
+		return Flux.defer(() ->  {
+			Utils.printThreadName("defer default");
+			return Flux.just("33");
+		});
+
+	}
+
+	/**
+	 * 无定制执行器-改变执行器
+	 * @return
+	 */
+	@RequestMapping(value = "/thread/subscribe/custom")
+	public Flux<String> subcsribeThread() {
+
+
+
+
+		return Flux.defer(() ->  {
+			Utils.printThreadName("defer default");
+			return Flux.just("11","22");
+		}).subscribeOn(Schedulers.newElastic("subscribeOn"));
+
+	}
+
 }
