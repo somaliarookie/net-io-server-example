@@ -28,7 +28,7 @@ public class ReactorController {
 
 		Flux.interval(Duration.ofSeconds(1L)).subscribe(System.out::println);
 
-		return Flux.interval(Duration.ofSeconds(1L));
+		return Flux.interval(Duration.ofSeconds(1L)).log();
 
 	}
 
@@ -41,7 +41,7 @@ public class ReactorController {
 
 
 		return Flux.just("data1")
-				.delayElements(Duration.ofMillis(lantency));
+				.delayElements(Duration.ofMillis(lantency)).log();
 
 	}
 
@@ -72,7 +72,7 @@ public class ReactorController {
 		return Flux.defer(() ->  {
 			Utils.printThreadName("defer default");
 			return Flux.just("11","22");
-		}).subscribeOn(Schedulers.newElastic("subscribeOn"));
+		}).subscribeOn(Schedulers.newElastic("subscribeOn")).log();
 
 	}
 
