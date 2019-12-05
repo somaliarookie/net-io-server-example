@@ -69,10 +69,6 @@ public class ReactorController {
 	 */
 	@RequestMapping(value = "/thread/subscribe/custom")
 	public Flux<String> subcsribeThread() {
-
-
-
-
 		return Flux.defer(() ->  {
 			Utils.printThreadName("defer default");
 			return Flux.just("11","22");
