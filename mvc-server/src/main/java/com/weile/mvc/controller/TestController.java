@@ -33,9 +33,7 @@ public class TestController {
 	@RequestMapping(value = "/mvc/lantency/{lantency}")
 	public String getWithLantency(@PathVariable Long lantency) {
 
-
 		System.out.println("lantency:"+lantency);
-
 
 		try {
 			TimeUnit.MILLISECONDS.sleep(lantency);   // 1
