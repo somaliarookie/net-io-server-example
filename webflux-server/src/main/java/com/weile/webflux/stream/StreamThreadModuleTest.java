@@ -25,7 +25,6 @@ public class StreamThreadModuleTest {
 
 
 
-
 		Random random = new Random();
 		// 随机产生数据
 		Stream<Integer> stream = Stream.generate(() -> random.nextInt())
