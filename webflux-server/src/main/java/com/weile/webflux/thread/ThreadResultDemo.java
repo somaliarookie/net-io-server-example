@@ -1,5 +1,6 @@
 package com.weile.webflux.thread;
 
+import com.weile.webflux.util.Utils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ArrayBlockingQueue;
@@ -46,18 +47,18 @@ public class ThreadResultDemo {
 
 		Callable<String> work = () -> {
 
+			log.info("work");
+
 			TimeUnit.MILLISECONDS.sleep(400);
 			return "result";
 		};
 
 
-		//创建线程池供使用
-		BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue<Runnable>(2);
-		ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(1, 1, 100, TimeUnit.MILLISECONDS, workQueue);
+		ThreadPoolExecutor threadPoolExecutor = Utils.getThreadPoolExecutorWithName("work");
 
 
 		//使用线程池执行任务
-		Future<String> future = poolExecutor.submit(work);
+		Future<String> future = threadPoolExecutor.submit(work);
 
 
 		//获取任务结果
