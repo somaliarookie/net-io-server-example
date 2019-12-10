@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
  * @Time 2019/12/5 17:19
  * @Description TODO
  **/
-public class ThreadDemo {
+public class ThreadStatusDemo {
 
 
 	public static void main(String[] args) {
