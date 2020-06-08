@@ -1,6 +1,5 @@
 package com.weile.mvc.controller;
 
-import jdk.internal.jline.internal.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,8 +33,8 @@ public class TestController {
     @RequestMapping(value = "/mvc/rt/{rt}")
     public String getWithLantency(@PathVariable Long rt) {
 
-        Log.info();
 
+        log.info("response time: {} ",rt);
         try {
             TimeUnit.MILLISECONDS.sleep(rt);   // 1
         } catch (InterruptedException e) {
