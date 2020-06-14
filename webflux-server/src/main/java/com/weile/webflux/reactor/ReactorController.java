@@ -33,15 +33,15 @@ public class ReactorController {
 	}
 
 
-	@RequestMapping(value = "/flux/lantency/{lantency}")
-	public Flux<String> getFluxWithLantency(@PathVariable Long lantency) {
+	@RequestMapping(value = "/flux/rt/{rt}")
+	public Flux<String> getFluxWithLantency(@PathVariable Long rt) {
 
 
-		System.out.println("lantency:"+lantency);
+		System.out.println("rt:"+rt);
 
 
 		return Flux.just("data1")
-				.delayElements(Duration.ofMillis(lantency)).log();
+				.delayElements(Duration.ofMillis(rt)).log();
 
 	}
 
