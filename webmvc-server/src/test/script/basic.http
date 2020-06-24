@@ -1,0 +1,6 @@
+GET http://localhost:8000/mvc/rt/10000
+Accept: application/json
+
+### test
+GET http://localhost:8000/test
+
