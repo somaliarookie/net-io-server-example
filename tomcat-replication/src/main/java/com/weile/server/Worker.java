@@ -1,7 +1,11 @@
 package com.weile.server;
 
+import com.weile.server.entity.BasicHttpServletResponse;
+
 import java.io.*;
 import java.net.Socket;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 /**
  * @Auth weile
@@ -17,6 +21,8 @@ public class Worker implements Runnable {
         this.socket = socket;
     }
 
+
+    @Override
     public void run() {
 
         System.out.println("客户端:" + socket.getRemoteSocketAddress().toString() + "已连接到服务器");
@@ -24,6 +30,10 @@ public class Worker implements Runnable {
         BufferedReader br = null;
         try {
             br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+
+
+
             //读取客户端发送来的消息
             String msg = br.readLine();
             System.out.println("客户端：" + msg);
