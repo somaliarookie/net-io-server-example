@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.WriteListener;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -20,7 +21,7 @@ import java.util.Locale;
 
 @Data
 @AllArgsConstructor
-public class BasicHttpServletResponse  implements HttpServletResponse {
+public class BasicHttpServletResponse implements HttpServletResponse {
 
 	private Socket socket;
 
@@ -142,6 +143,38 @@ public class BasicHttpServletResponse  implements HttpServletResponse {
 
 	@Override
 	public ServletOutputStream getOutputStream() throws IOException {
+
+
+		ServletOutputStream servletOutputStream = new ServletOutputStream() {
+			@Override
+			public void write(int b) throws IOException {
+
+			}
+
+			@Override
+			public void write(byte[] data) throws IOException {
+
+
+
+				socket.getOutputStream().write("HTTP/1.1 200 OK \r\n".getBytes());
+				socket.getOutputStream().write(data);
+
+			}
+
+
+
+
+			@Override
+			public boolean isReady() {
+				return false;
+			}
+
+			@Override
+			public void setWriteListener(WriteListener writeListener) {
+
+			}
+		};
+
 		return null;
 	}
 
