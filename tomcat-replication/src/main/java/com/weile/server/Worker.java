@@ -44,6 +44,7 @@ public class Worker implements Runnable {
             bw.write("Content-Type: application/json\r\n");
             bw.write("Last-Modified: Wed, 5 August 1996 15:55:28 GMT" + "\r\n");
             bw.write("Server: Apache 0.84\r\n");
+            bw.write("\r\n");
             bw.write("{\"data\":123}\r\n");
 
             bw.flush();
