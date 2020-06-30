@@ -17,9 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpUpgradeHandler;
 import javax.servlet.http.Part;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
+import java.net.Socket;
 import java.net.URI;
 import java.security.Principal;
 import java.util.Collection;
@@ -42,6 +41,7 @@ public class BasicHttpServletRequest implements HttpServletRequest {
 	 *   http://domain/contextpath/test?param=123;
 	 */
 	private byte[] bytes;
+
 
 
 	@Override

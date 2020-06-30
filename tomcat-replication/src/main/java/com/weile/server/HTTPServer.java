@@ -1,7 +1,11 @@
 package com.weile.server;
 
+import com.weile.server.entity.HttpServletRequestFactory;
 
-import java.io.*;
+import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -29,7 +33,7 @@ public class HTTPServer {
 
                 Socket socket = ss.accept();
 //                serveClientWithOneThread(socket);
-                serveClientWithMutipleThread(socket);
+                                serveClientWithMutipleThread(socket);
 
             }
 
@@ -40,21 +44,22 @@ public class HTTPServer {
     }
 
     private static void serveClientWithMutipleThread(Socket socket) {
-        new Thread(new Worker(socket),"http-server-worker").start();
+        new Thread(new Worker(socket), "http-server-worker").start();
     }
 
-    private static void serveClientWithOneThread(ServerSocket ss) throws IOException {
-        Socket s = ss.accept();
-        System.out.println("客户端:" + s.getRemoteSocketAddress().toString() + "已连接到服务器");
+    private static void serveClientWithOneThread(Socket socket) throws IOException {
+        System.out.println("客户端:" + socket.getRemoteSocketAddress().toString() + "已连接到服务器");
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
-        //读取客户端发送来的消息
-        String mess = br.readLine();
-        System.out.println("客户端：" + mess);
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+        byte[] bytes = socket.getInputStream().readAllBytes();
+
+        HttpServletRequest httpServletRequest = HttpServletRequestFactory.creatHttpServletRequest(bytes);
+
+        System.out.println(httpServletRequest.getContextPath());
+
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
         bw.write("HTTP/1.1 200 OK" + "\r\n");
         bw.flush();
-        s.close();
+        socket.close();
 
     }
 

@@ -1,10 +1,14 @@
 package com.weile.server.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.Collection;
 import java.util.Locale;
 
@@ -13,7 +17,14 @@ import java.util.Locale;
  * @Time 2020/6/26 22:25
  * @Description http返回
  **/
+
+@Data
+@AllArgsConstructor
 public class BasicHttpServletResponse  implements HttpServletResponse {
+
+	private Socket socket;
+
+
 	@Override
 	public void addCookie(Cookie cookie) {
 
