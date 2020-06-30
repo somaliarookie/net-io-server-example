@@ -1,5 +1,6 @@
 package com.weile.server.entity;
 
+import com.weile.server.utils.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -99,7 +100,9 @@ public class BasicHttpServletRequest implements HttpServletRequest {
 
 	@Override
 	public String getContextPath() {
-		String fullPath = String.valueOf(bytes).split("\r\n")[0].split(" ")[1];
+
+
+		String fullPath = StringUtils.byteArrayToStr(bytes).split("\r\n")[0].split(" ")[1];
 		String host = URI.create(fullPath).getPath().split("/")[1];
 		return host;
 	}

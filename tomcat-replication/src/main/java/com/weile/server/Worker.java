@@ -28,12 +28,10 @@ public class Worker implements Runnable {
 
         try {
 
-
-            byte[] bytes = socket.getInputStream().readAllBytes();
-
-
+            byte[] inputBytes = new byte[socket.getInputStream().available()];
+            socket.getInputStream().read(inputBytes);
             //读取客户端发送来的消息
-            String msg = new String(bytes);
+            String msg = new String(inputBytes);
             System.out.println("客户端：" + msg);
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             bw.write("HTTP/1.1 200 \r\n");
@@ -44,7 +42,6 @@ public class Worker implements Runnable {
             bw.write("Server: Apache 0.84\r\n");
             bw.write("\r\n");
             bw.write("{\"data\":123}\r\n");
-
             bw.flush();
             bw.close();
         } catch (IOException e) {

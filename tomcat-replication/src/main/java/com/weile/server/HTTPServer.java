@@ -32,8 +32,8 @@ public class HTTPServer {
             while (true) {
 
                 Socket socket = ss.accept();
-//                serveClientWithOneThread(socket);
-                                serveClientWithMutipleThread(socket);
+                serveClientWithOneThread(socket);
+//                                serveClientWithMutipleThread(socket);
 
             }
 
@@ -50,9 +50,11 @@ public class HTTPServer {
     private static void serveClientWithOneThread(Socket socket) throws IOException {
         System.out.println("客户端:" + socket.getRemoteSocketAddress().toString() + "已连接到服务器");
 
-        byte[] bytes = socket.getInputStream().readAllBytes();
+        byte[] inputBytes = new byte[socket.getInputStream().available()];
+        socket.getInputStream().read(inputBytes);
+        //读取客户端发送来的消息
 
-        HttpServletRequest httpServletRequest = HttpServletRequestFactory.creatHttpServletRequest(bytes);
+        HttpServletRequest httpServletRequest = HttpServletRequestFactory.creatHttpServletRequest(inputBytes);
 
         System.out.println(httpServletRequest.getContextPath());
 
