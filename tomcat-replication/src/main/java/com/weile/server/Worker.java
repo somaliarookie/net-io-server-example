@@ -1,11 +1,10 @@
 package com.weile.server;
 
-import com.weile.server.entity.BasicHttpServletResponse;
+import com.weile.server.entity.HttpServletRequestFactory;
+import org.apache.commons.io.IOUtils;
 
 import java.io.*;
 import java.net.Socket;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 
 /**
  * @Auth weile
@@ -27,15 +26,12 @@ public class Worker implements Runnable {
 
         System.out.println("客户端:" + socket.getRemoteSocketAddress().toString() + "已连接到服务器");
 
-        BufferedReader br = null;
         try {
-            br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-
-
-
+            byte[] inputBytes = new byte[socket.getInputStream().available()];
+            socket.getInputStream().read(inputBytes);
             //读取客户端发送来的消息
-            String msg = br.readLine();
+            String msg = new String(inputBytes);
             System.out.println("客户端：" + msg);
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             bw.write("HTTP/1.1 200 \r\n");
@@ -46,7 +42,6 @@ public class Worker implements Runnable {
             bw.write("Server: Apache 0.84\r\n");
             bw.write("\r\n");
             bw.write("{\"data\":123}\r\n");
-
             bw.flush();
             bw.close();
         } catch (IOException e) {
