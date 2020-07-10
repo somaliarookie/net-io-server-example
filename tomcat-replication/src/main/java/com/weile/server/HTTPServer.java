@@ -1,13 +1,15 @@
 package com.weile.server;
 
 import com.weile.server.entity.HttpServletRequestFactory;
+import zip.Zip;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @Auth weile
@@ -33,7 +35,7 @@ public class HTTPServer {
 
                 Socket socket = ss.accept();
                 serveClientWithOneThread(socket);
-//                                serveClientWithMutipleThread(socket);
+                //                                serveClientWithMutipleThread(socket);
 
             }
 
@@ -62,6 +64,45 @@ public class HTTPServer {
         bw.write("HTTP/1.1 200 OK" + "\r\n");
         bw.flush();
         socket.close();
+
+    }
+
+    private void initServerlet(String workspace) {
+
+        //到指定目录扫描解压war包
+        File path = new File(workspace);
+
+        FilenameFilter filenameFilter = new FilenameFilter() {
+            @Override
+            public boolean accept(File file, String name) {
+
+                return name.endsWith(".war");
+
+            }
+        };
+
+        File[] files = path.listFiles(filenameFilter);
+        Arrays.stream(files).filter(file -> { return file.isDirectory(); }).forEach((file) -> {
+            System.out.println("filename:" + file.getName());
+            try {
+                Zip.unZip(file, path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        //加载项目
+
+        Set<String> projects = new HashSet<>();
+        File[] pathFiles = path.listFiles();
+        Arrays.stream(pathFiles).filter( file ->  { return !file.isDirectory(); }).forEach( file -> {
+
+            projects.add(file.getName());
+            System.out.println("project:"+file.getName());
+
+        });
+
+
 
     }
 
